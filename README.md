@@ -5,15 +5,24 @@ compress video
 fmpeg -i input.mp4 -vcodec libx265 -crf 30 output.mp4
 ```
 
+compress all *.mp4 | *.MP4 in a directory
+```bash
+mkdir -p compressed && for i in ./*.{mp4,MP4}; do [ -f "$i" ] && ffmpeg -i "$i" -vcodec libx265 -crf 30 "./compressed/$(basename "${i%.*}").mp4"; done
+```
+
 compress image
 ```bash
 ffmpeg -i input.jpg -compression_level 50 output.jpg
 ```
 
-compress all *.jpg in a directory
+compress all *.jpg | *.JPG in a directory
 ```bash
 for i in ./*.jpg; do ffmpeg -i "$i" -compression_level 50 "./compressed/$i"; done
 ```
+```bash
+mkdir -p compressed && for i in ./*.{jpg,JPG}; do [ -f "$i" ] && ffmpeg -i "$i" -q:v 5 "./compressed/$(basename "$i")"; done
+```
+
 Creating a video screenshot
 ```bash
 ffmpeg -ss 5 -i input.mp4 -frames 1 screenshot.png
