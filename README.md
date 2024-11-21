@@ -34,5 +34,5 @@ ffmpeg -ss 5 -i input.mp4 -frames 1 screenshot.png
 
 Removing the metadata information in multimedia files:
 ```bash
-ffmpeg –i example.mp4 –c:a copy –c:v copy –map_metadata -1 example_modified.mp4 >& /dev/null
+ffmpeg -i /path/to/input.mp4 -map 0 -map_metadata -1 -c copy /path/to/output.mp4
 ```
