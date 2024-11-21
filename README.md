@@ -23,10 +23,16 @@ for i in ./*.jpg; do ffmpeg -i "$i" -compression_level 50 "./compressed/$i"; don
 mkdir -p compressed && for i in ./*.{jpg,JPG}; do [ -f "$i" ] && ffmpeg -i "$i" -q:v 5 "./compressed/$(basename "$i")"; done
 ```
 
-Creating a video screenshot
+Creating a video screenshot:
+The -ss 5 argument tells FFmpeg to jump to the 5-second mark.
+Next, it extracts a single image with the -frames 1 argument.
+
 ```bash
 ffmpeg -ss 5 -i input.mp4 -frames 1 screenshot.png
 ```
-The -ss 5 argument tells FFmpeg to jump to the 5-second mark.
 
-Next, it extracts a single image with the -frames 1 argument.
+
+Removing the metadata information in multimedia files:
+```bash
+ffmpeg –i example.mp4 –c:a copy –c:v copy –map_metadata -1 example_modified.mp4 >& /dev/null
+```
